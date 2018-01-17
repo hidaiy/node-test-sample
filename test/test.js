@@ -104,7 +104,7 @@ describe('only', function () {
 
 // retriesを使うと、失敗する可能性のあるテストをやり直すことができる。
 // やり直す回数を指定する。
-describe('retries', function () {
+describe.skip('retries', function () {
     // Retry all tests in this suite up to 4 times
     this.retries(10);
 
@@ -132,5 +132,22 @@ describe('DYNAMICALLY GENERATING TEST', function () {
         it(`${c.arg} should be ${c.expect}`, function () {
             assert.equal(double(c.arg), c.expect);
         });
+    });
+});
+
+// requireはキャッシュされるので、テスト時にrequireした値を変更する場合、
+// beforeEachで初期化する。
+describe('require index', function () {
+    let index = require('../index');
+    beforeEach(function() {
+        index.name = '';
+    });
+
+    it('shoud be index.name is index1', function () {
+        index.name = "index1";
+        assert.equal(index.name, "index1");
+    });
+    it('shoud be index.name is ""', function () {
+        assert.equal(index.name, "");
     });
 });
