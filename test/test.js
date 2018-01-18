@@ -151,3 +151,5 @@ describe('require index', function () {
         assert.equal(index.name, "");
     });
 });
+
+
